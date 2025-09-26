@@ -1,0 +1,31 @@
+{
+  "name": "@connectome/axon-interfaces",
+  "version": "1.0.0",
+  "description": "Shared TypeScript interfaces for Connectome AXON components",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "keywords": [
+    "connectome",
+    "axon",
+    "interfaces",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/connectome/axon-interfaces.git"
+  }
+}

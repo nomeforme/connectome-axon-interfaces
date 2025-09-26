@@ -1,0 +1,12 @@
+.idea
+.idea/**
+dist
+dist/**
+node_modules
+node_modules/**
+.vscode
+.vscode/**
+.cursor
+.cursor/**
+.cursorignore
+.cursorignore/**

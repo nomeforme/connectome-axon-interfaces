@@ -1,0 +1,60 @@
+/**
+ * AXON Manifest and Environment Interfaces
+ * 
+ * Defines interfaces for AXON component loading and runtime environment
+ */
+
+import { IComponent } from './core';
+import { IVEILComponent, IInteractiveComponent } from './veil';
+import { IPersistentMetadata, IExternalMetadata } from './persistence';
+import { ISpaceEvent } from './events';
+
+export interface IAxonComponentConstructor {
+  new(): IInteractiveComponent;
+  actions?: Record<string, string | { description: string; params?: any }>;
+  persistentProperties?: IPersistentMetadata[];
+  externalResources?: IExternalMetadata[];
+}
+
+export interface IAxonEnvironment {
+  // Component base classes
+  Component: abstract new() => IComponent;
+  VEILComponent: abstract new() => IVEILComponent;
+  InteractiveComponent: abstract new() => IInteractiveComponent;
+  
+  // Decorators (as functions that can be applied)
+  persistent: (target: any, propertyKey: string) => void;
+  persistable: (version: number) => (target: any) => void;
+  external: (resourceId: string) => (target: any, propertyKey: string) => void;
+  
+  // Type references
+  SpaceEvent: new<T>() => ISpaceEvent<T>;
+  
+  // WebSocket (if needed)
+  WebSocket?: any;
+}
+
+export interface IAxonManifest {
+  name: string;
+  version: string;
+  description?: string;
+  main: string;
+  componentClass: string;
+  moduleType?: 'class' | 'function'; // 'function' means module exports a factory
+  extends?: string;
+  dependencies?: Array<{
+    name: string;
+    manifest: string; // URL to dependency manifest
+  }>;
+  actions?: Record<string, {
+    description: string;
+    parameters?: Record<string, any>;
+  }>;
+  config?: Record<string, {
+    type: string;
+    description?: string;
+    required?: boolean;
+  }>;
+  hotReload?: string;
+  hash?: string;
+}
