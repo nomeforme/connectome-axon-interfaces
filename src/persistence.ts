@@ -13,3 +13,4 @@ export interface IExternalMetadata {
   propertyKey: string;
   resourceId: string;
 }
+

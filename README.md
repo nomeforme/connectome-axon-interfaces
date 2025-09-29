@@ -33,10 +33,21 @@ export function createModule(env: IAxonEnvironment) {
 ## Interface Categories
 
 - **Core**: `IComponent`, `IElement`, `ISpace` - fundamental building blocks
-- **Events**: `ISpaceEvent`, `IElementRef` - event system interfaces  
-- **VEIL**: `IVEILComponent`, `IInteractiveComponent` - VEIL state management
+- **Events**: `ISpaceEvent`, `IElementRef` - event system interfaces
+- **VEIL**: `Facet`, `VEILDelta`, `IVEILComponent`, `IInteractiveComponent` - facet-based VEIL state
 - **Persistence**: `IPersistentMetadata`, `IExternalMetadata` - persistence decorators
 - **Manifest**: `IAxonManifest`, `IAxonEnvironment` - component loading and runtime
+
+## VEIL Facet Architecture
+
+The VEIL interfaces now reflect the aspect-based facet model used across Connectome:
+
+- Facets declare explicit aspects (content, state, stream, agent, scope, etc.) rather than generic `attributes`
+- Deltas (`VEILDelta`) replace legacy "operations" and are limited to `addFacet`, `changeFacet`, and `removeFacet`
+- Component helpers (`addFacet`, `addAmbient`, `changeState`, etc.) emit data that satisfies the new aspect requirements
+- Frames (`IVEILFrame`) surface `deltas`, `events`, and transition details so hosts can reconcile VEIL state accurately
+
+See the exported types in `src/veil.ts` for the full facet taxonomy and type guards like `hasContentAspect`.
 
 ## Architecture
 
