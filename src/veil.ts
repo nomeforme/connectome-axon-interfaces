@@ -118,13 +118,13 @@ export type InternalStateFacet = BaseFacet & StateAspect & {
 // META / SYSTEM FACETS
 // ============================================
 
-export type StateChangeFacet = BaseFacet & TargetedAspect & StateAspect<{
+export type StateRewriteFacet = BaseFacet & TargetedAspect & StateAspect<{
   changes: Record<string, { old: any; new: any }>;
 }> & EphemeralAspect & {
   type: 'state-change';
 };
 
-export type ScopeChangeFacet = BaseFacet & StateAspect<{
+export type ScopeRewriteFacet = BaseFacet & StateAspect<{
   operation: 'add' | 'remove';
   scopeId: string;
   scopeData?: any;
@@ -132,7 +132,7 @@ export type ScopeChangeFacet = BaseFacet & StateAspect<{
   type: 'scope-change';
 };
 
-export type StreamChangeFacet = BaseFacet & StateAspect<{
+export type StreamRewriteFacet = BaseFacet & StateAspect<{
   operation: 'add' | 'remove' | 'activate';
   streamId: string;
   streamType?: string;
@@ -191,9 +191,9 @@ export type Facet =
   | ContentFacet
   | ConfigFacet
   | InternalStateFacet
-  | StateChangeFacet
-  | ScopeChangeFacet
-  | StreamChangeFacet
+  | StateRewriteFacet
+  | ScopeRewriteFacet
+  | StreamRewriteFacet
   | AgentLifecycleFacet
   | AgentActivationFacet
   | ActionDefinitionFacet;
@@ -236,7 +236,7 @@ export function hasTargetedAspect(facet: Facet): facet is Facet & TargetedAspect
 
 export type VEILDelta =
   | { type: 'addFacet'; facet: Facet }
-  | { type: 'changeFacet'; id: string; changes: Partial<Facet> }
+  | { type: 'rewriteFacet'; id: string; changes: Partial<Facet> }
   | { type: 'removeFacet'; id: string };
 
 export interface StreamInfo {
