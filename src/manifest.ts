@@ -21,17 +21,51 @@ export interface IAxonEnvironment {
   Component: abstract new() => IComponent;
   VEILComponent: abstract new() => IVEILComponent;
   InteractiveComponent: abstract new() => IInteractiveComponent;
-  
+  ControlPanelComponent: any;
+  BaseAfferent: any;
+
+  // Control Panel receptors (built-in components)
+  ControlPanelActionsReceptor: any;
+  PanelScopeReceptor: any;
+
   // Decorators (as functions that can be applied)
   persistent: (target: any, propertyKey: string) => void;
   persistable: (version: number) => (target: any) => void;
   external: (resourceId: string) => (target: any, propertyKey: string) => void;
-  
+
   // Type references
   SpaceEvent: new<T>() => ISpaceEvent<T>;
-  
+
   // WebSocket (if needed)
   WebSocket?: any;
+
+  // Helper types
+  VEILDelta: any;
+  FacetDelta: any;
+  ReadonlyVEILState: any;
+  EffectorResult: any;
+  ExternalAction: any;
+
+  // Facet types
+  Facet: any;
+  EventFacet: any;
+  SpeechFacet: any;
+  StateFacet: any;
+  ThoughtFacet: any;
+  ActionFacet: any;
+
+  // Factory functions
+  createEventFacet: any;
+  createSpeechFacet: any;
+  createStateFacet: any;
+  createThoughtFacet: any;
+  createActionFacet: any;
+  createAmbientFacet: any;
+  createAgentActivation: any;
+
+  // Helper functions
+  hasFacet: (state: any, id: string) => boolean;
+  getFacetsByType: (state: any, type: string) => any[];
 }
 
 export interface IAxonManifest {
@@ -40,7 +74,6 @@ export interface IAxonManifest {
   description?: string;
   main: string;
   componentClass: string;
-  moduleType?: 'class' | 'function'; // 'function' means module exports a factory
   extends?: string;
   dependencies?: Array<{
     name: string;

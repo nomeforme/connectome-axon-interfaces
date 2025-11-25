@@ -11,17 +11,11 @@ export interface IComponent {
   onUnmount?(): void | Promise<void>;
   handleEvent?(event: ISpaceEvent): void | Promise<void>;
   handleAction?(action: string, params?: any): Promise<void>;
-  readonly element: IElement;
-}
 
-export interface IElement {
-  readonly id: string;
-  readonly name: string;
   readonly space?: ISpace;
+  readonly id?: string;
   
-  getRef(): IElementRef;
   subscribe(topic: string): void;
-  unsubscribe(topic: string): void;
   emit(event: Omit<ISpaceEvent, 'source'>): void;
 }
 
