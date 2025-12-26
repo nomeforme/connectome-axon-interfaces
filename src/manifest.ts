@@ -24,10 +24,6 @@ export interface IAxonEnvironment {
   ControlPanelComponent: any;
   BaseAfferent: any;
 
-  // Control Panel receptors (built-in components)
-  ControlPanelActionsReceptor: any;
-  PanelScopeReceptor: any;
-
   // Decorators (as functions that can be applied)
   persistent: (target: any, propertyKey: string) => void;
   persistable: (version: number) => (target: any) => void;
