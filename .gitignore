@@ -10,3 +10,9 @@ node_modules/**
 .cursor/**
 .cursorignore
 .cursorignore/**
+.gitnexus
+
+# Build artifacts
+*.tsbuildinfo
+.turbo/
+.claude/
